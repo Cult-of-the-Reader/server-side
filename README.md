@@ -1,4 +1,10 @@
-#CULT OF THE READER
+# CULT OF THE READER
+
+## THIS REPO IS DEPLOYED WITH RENDER
+
+Read the document [endpoints](./cotr-doc.md)
+
+Change `http://localhost:3001/` to `https://cult-of-the-reader.onrender.com/`
 
 ## SERVER SIDE
 
