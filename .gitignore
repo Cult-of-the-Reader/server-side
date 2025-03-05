@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+
+# npm package lock file
+package-lock.json
+
+# Temporary files
+*.swp
+*.swo
