@@ -16,6 +16,7 @@ Dashboard.belongsTo(User)
 export default {
 	syncDDBB: async () => {
 		try {
+			await sequelize.authenticate()
 			await User.sync()
 			await Dashboard.sync()
 
