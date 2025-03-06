@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 
 import swaggerConfig from "./swagger.js"
+
 import logger from "./config/logger.js"
 
 import sync from "./models/sync.model.js"
@@ -25,6 +26,7 @@ app.use(urlencoded({ extended: false }))
 
 mongoConnect()
 
+// Swagger implement
 swaggerConfig.setup(app)
 
 // Routes
