@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.js"
 import bookRoutes from "./routes/book.js"
 import reviewRoutes from "./routes/reviews.js"
 import dashboardRoutes from "./routes/dashboard.js"
+import cartItemRoutes from "./routes/cartItem.js"
 
 dotenv.config()
 
@@ -27,10 +28,11 @@ mongoConnect()
 swaggerConfig.setup(app)
 
 // Routes
-app.use("/api/v1/", authRoutes)
-app.use("/api/v1/", bookRoutes)
-app.use("/api/v1/", reviewRoutes)
-app.use("/api/v1/", dashboardRoutes)
+app.use("/api/v2/", authRoutes)
+app.use("/api/v2/", bookRoutes)
+app.use("/api/v2/", reviewRoutes)
+app.use("/api/v2/", dashboardRoutes)
+app.use("/api/v2/", cartItemRoutes)
 
 const PORT = process.env.PORT
 

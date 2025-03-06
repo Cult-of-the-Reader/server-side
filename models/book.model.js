@@ -43,6 +43,11 @@ const bookSchema = new mongoose.Schema({
 		default: 0,
 		min: 0
 	},
+	reservedStock: {
+		type: Number,
+		default: 0,
+		min: 0
+	},
 	isbn: {
 		type: String,
 		required: true,
@@ -102,5 +107,31 @@ export default {
 		} catch (err) {
 			logger.error(err)
 		}
+	},
+	buyBook: async (idBook) => {
+		try {
+			const lessStock = await Book.findByIdAndUpdate(
+				{ _id: idBook, stock: { $gt: 0 } },
+				{ $inc: { stock: -1, reservedStock: 1 } },
+				{ new: true }
+			)
+			console.log(lessStock)
+
+			return lessStock
+		} catch (err) {
+			logger.error(err)
+		}
+	},
+	restoreBook: async (idBook) => {
+		try {
+			const restoreStock = await Book.findByIdAndUpdate(idBook, {
+				$inc: { stock: 1, reservedStock: -1 }
+			})
+
+			return restoreStock
+		} catch (err) {
+			logger.error(err)
+		}
 	}
+
 }

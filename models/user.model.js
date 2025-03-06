@@ -63,5 +63,17 @@ export default {
 
 			logger.error('Error findOneByData:', err)
 		}
+	},
+	findById: async (userId) => {
+		try {
+			const infoUser = await User.findByPk(userId, {
+				include: [Dashboard],
+				attributes: ['id', 'username', 'email']
+			})
+
+			return infoUser
+		} catch (err) {
+			
+		}
 	}
 }
