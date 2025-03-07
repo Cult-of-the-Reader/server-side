@@ -31,6 +31,19 @@ cartItemSchema.index({ userId: 1, book: 1 }, { unique: true });
 const CartItem = mongoose.model("CartItem", cartItemSchema);
 
 export default {
+  findById: async (bookId, userId) => {
+    try {
+      return await CartItem.findOne({
+        book: bookId,
+        userId: userId,
+        isVisible: true
+      }).populate('book');
+    } catch (err) {
+      logger.error(err);
+      return null;
+    }
+  },
+
   getCart: async (userId) => {
     try {
       const cartUser = await CartItem.find({ userId, isVisible: true }).populate("book", 'title cover price discount')
@@ -41,7 +54,7 @@ export default {
 
     }
   },
-  findUpdate: async (bookId, userId) => {
+  findIncrement: async (bookId, userId) => {
     try {
       const updateCartItem = await CartItem.findOneAndUpdate(
         { book: bookId, userId },
@@ -57,17 +70,44 @@ export default {
       logger.error(err);
     }
   },
+  findDecrement: async (bookId, userId) => {
+    try {
+      const cartItem = await CartItem.findOne({
+        book: bookId,
+        userId: userId,
+        isVisible: true
+      });
+
+      console.log(cartItem)
+
+      if (!cartItem) {
+        return null;
+      }
+
+      if (cartItem.quantity <= 1) {
+        cartItem.isVisible = false;
+        await cartItem.save();
+        return cartItem;
+      }
+
+      cartItem.quantity -= 1;
+      await cartItem.save();
+      return cartItem;
+    } catch (err) {
+      logger.error(err);
+      return null;
+    }
+  },
 
   softDelete: async (bookId, userId) => {
     try {
-      const deleteCartItem = await CartItem.findOneAndUpdate(
+      return await CartItem.updateMany(
         { book: bookId, userId },
-        { $set: { isVisible: false } },
-        { new: true }
+        { $set: { isVisible: false } }
       );
-      return deleteCartItem;
     } catch (error) {
       logger.error(error);
+      throw error;
     }
   }
 };

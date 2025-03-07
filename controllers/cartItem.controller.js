@@ -26,7 +26,7 @@ export default {
 
 			if (!book) return res.status(400).json({ error: "Out of stock " })
 
-			const cartItem = await modelCart.findUpdate(bookId, userId)
+			const cartItem = await modelCart.findIncrement(bookId, userId)
 
 			res.status(200).json(cartItem)
 		} catch (err) {
@@ -34,18 +34,42 @@ export default {
 			res.status(500).json({ error: 'Something went wrong' })
 		}
 	},
+
+	decrementCart: async (req, res) => {
+		try {
+			const result = await modelCart.findDecrement(req.params.id, req.userId);
+			if (!result) return res.status(404).json({ error: "Item no encontrado" });
+
+			if (result) {
+				await modelBook.restoreBook(result.book);
+			}
+			logger.http(result)
+
+			res.status(200).json(result)
+		} catch (error) {
+			res.status(500).json({ error: "Error al decrementar" });
+		}
+	},
+
 	deleteCart: async (req, res) => {
 		try {
-			const cartItem = await modelCart.softDelete(bookId, userId)
+			const { id } = req.params;
+			const userId = req.userId;
+
+			const cartItem = await modelCart.findById(id, userId);
 
 			if (cartItem) {
-				await modelBook.restoreBook(cartItem.book)
+				for (let i = 0; i < cartItem.quantity; i++) {
+					await modelBook.restoreBook(cartItem.book);
+				}
+
+				await modelCart.softDelete(id, userId);
 			}
 
-			res.status(200).json({ message: "Stock restored" })
-		} catch(err) {
+			res.status(200).json({ message: "Item removed from cart" });
+		} catch (err) {
 			logger.error(err);
-			res.status(500).json({ error: 'Something went wrong' })
+			res.status(500).json({ error: 'Something went wrong' });
 		}
 	}
 }
