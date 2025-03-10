@@ -8,6 +8,11 @@ const reviewSchema = new mongoose.Schema({
 	},
 	userId: {
 		type: String,
+		required: true
+	},
+	username: {
+		type: String,
+		required: true
 	},
 	rating: {
 		type: Number,
@@ -27,11 +32,11 @@ const reviewSchema = new mongoose.Schema({
 const Review = mongoose.model("Review", reviewSchema)
 
 export default {
-	createNewReview: async (bookId, userId, rating, comment) => {
+	createNewReview: async (bookId, userId, username, rating, comment) => {
 		try {
 			await Review.updateMany({ bookId, userId, isVisible: true }, { isVisible: false })
 
-			const newReview = new Review({ bookId, userId, rating, comment, isVisible: true })
+			const newReview = new Review({ bookId, userId, username, rating, comment, isVisible: true })
 			await newReview.save()
 			return newReview
 		} catch (err) {

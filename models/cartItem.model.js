@@ -78,15 +78,14 @@ export default {
         isVisible: true
       });
 
-      console.log(cartItem)
-
       if (!cartItem) {
         return null;
       }
 
       if (cartItem.quantity <= 1) {
         cartItem.isVisible = false;
-        await cartItem.save();
+        cartItem.quantity = 0;
+        await cartItem.save({ validateBeforeSave: false });
         return cartItem;
       }
 
@@ -103,7 +102,7 @@ export default {
     try {
       return await CartItem.updateMany(
         { book: bookId, userId },
-        { $set: { isVisible: false } }
+        { $set: { isVisible: false, quantity: 0 } }
       );
     } catch (error) {
       logger.error(error);

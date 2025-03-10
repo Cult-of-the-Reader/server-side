@@ -43,7 +43,6 @@ export default {
 			if (result) {
 				await modelBook.restoreBook(result.book);
 			}
-			logger.http(result)
 
 			res.status(200).json(result)
 		} catch (error) {
