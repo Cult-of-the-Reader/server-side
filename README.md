@@ -14,6 +14,14 @@ server/
 │   ├── cartitem.controller.js    # Cart items controller
 │   ├── dashboard.controller.js   # Dashboard controller
 │   └── review.controller.js      # Reviews controller
+├── docs/
+│   ├── jest
+│   └── book.model.test.js        # Jest tester for CRUD book collection
+│   ├── jmeter
+│   │    ├── auth_test.jmx        # Template JMeter
+│   │    └── auth.csv             # Template for the JMeter auth test
+│   ├── diagram_UML.png           # Simple UML Diagram
+│   └── ER_DDBB.png               # Database flow
 ├── middlewares/
 │   └── auth.middleware.js        # Authentication middleware
 ├── models/
