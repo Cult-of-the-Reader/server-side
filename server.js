@@ -30,11 +30,11 @@ mongoConnect()
 swaggerConfig.setup(app)
 
 // Routes
-app.use("/api/v2/", authRoutes)
-app.use("/api/v2/", bookRoutes)
-app.use("/api/v2/", reviewRoutes)
-app.use("/api/v2/", dashboardRoutes)
-app.use("/api/v2/", cartItemRoutes)
+app.use("/api/v4/", authRoutes)
+app.use("/api/v4/", bookRoutes)
+app.use("/api/v4/", reviewRoutes)
+app.use("/api/v4/", dashboardRoutes)
+app.use("/api/v4/", cartItemRoutes)
 
 const PORT = process.env.PORT
 

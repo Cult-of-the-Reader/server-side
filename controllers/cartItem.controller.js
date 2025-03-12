@@ -4,6 +4,13 @@ import modelUser from "../models/user.model.js"
 import logger from "../config/logger.js"
 
 export default {
+	/**
+		 * Gets the shopping cart of a user.
+		 * @param {Object} req - The HTTP request object.
+		 * @param {string} req.userId - User ID (added by authentication middleware).
+		 * @param {Object} res - The HTTP response object.
+		 * @returns {Object} JSON response with user data and cart items.
+		 */
 	getCart: async (req, res) => {
 		try {
 			const userId = req.userId
@@ -17,6 +24,16 @@ export default {
 			res.status(500).json({ error: 'Something went wrong' })
 		}
 	},
+
+	/**
+		 * Adds a book to the shopping cart.
+		 * @param {Object} req - The HTTP request object.
+		 * @param {Object} req.body - The request body.
+		 * @param {string} req.body.bookId - ID of the book to add to the cart.
+		 * @param {string} req.userId - User ID (added by authentication middleware).
+		 * @param {Object} res - The HTTP response object.
+		 * @returns {Object} JSON response with the added item or error message.
+		 */
 	addCart: async (req, res) => {
 		try {
 			const { bookId } = req.body
@@ -35,6 +52,15 @@ export default {
 		}
 	},
 
+	/**
+     * Decrements the quantity of a book in the cart.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.params - The route parameters.
+     * @param {string} req.params.id - ID of the book in the cart.
+     * @param {string} req.userId - User ID (added by authentication middleware).
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON response with the operation result.
+     */
 	decrementCart: async (req, res) => {
 		try {
 			const result = await modelCart.findDecrement(req.params.id, req.userId);
@@ -50,6 +76,15 @@ export default {
 		}
 	},
 
+	/**
+     * Removes the total of an item from the shopping cart.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.params - The route parameters.
+     * @param {string} req.params.id - ID of the book to remove from the cart.
+     * @param {string} req.userId - User ID (added by authentication middleware).
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON response with confirmation message.
+     */
 	deleteCart: async (req, res) => {
 		try {
 			const { id } = req.params;

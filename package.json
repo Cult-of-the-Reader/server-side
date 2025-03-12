@@ -4,9 +4,12 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js",
     "server": "nodemon server.js"
+  },
+  "module.exports": {
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +29,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.9"
   }
 }

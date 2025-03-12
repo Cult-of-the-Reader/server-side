@@ -9,17 +9,27 @@ import modelDashboard from "../models/dashboard.model.js"
 dotenv.config()
 
 export default {
+	/**
+		 * Registers a new user in the ddbb.
+		 * @param {Object} req - The HTTP request object.
+		 * @param {Object} req.body - The request body.
+		 * @param {string} req.body.username - Username of the new user.
+		 * @param {string} req.body.email - Email of the new user.
+		 * @param {string} req.body.pwd - Password of the new user.
+		 * @param {Object} res - The HTTP response object.
+		 * @returns {Object} JSON response with success or error message.
+		 */
 	register: async (req, res) => {
 		try {
 			const { username, email, pwd } = req.body
 
 			const checkUser = await modelUser.findOneByData({ username })
-			if(checkUser.dataValues?.username === username) {
+			if (checkUser.dataValues?.username === username) {
 				return res.status(409).json({ error: 'Username is taken' })
 			}
 
 			const checkEmail = await modelUser.findOneByData({ email })
-			if(checkEmail.dataValues?.email === email) {
+			if (checkEmail.dataValues?.email === email) {
 				return res.status(409).json({ error: 'Email already registered' })
 			}
 
@@ -30,15 +40,14 @@ export default {
 				pwd: hashedPwd
 			})
 
-			// EN EL REGISTER SE INSERTARÁ EL USERID A LA TABLA DASHBOARD🤯
-			if(user) {
+			if (user) {
 				const getId = {
 					UserId: user.dataValues?.id,
 					user: user.dataValues?.username,
 					email: user.dataValues?.email
 				}
 				logger.debug(`Passing data ${JSON.stringify(getId)} to dashboard table`)
-				modelDashboard.createData( getId )
+				modelDashboard.createData(getId)
 			}
 
 			logger.info(`User ${user.username} registered successfully`)
@@ -50,6 +59,15 @@ export default {
 		}
 	},
 
+	/**
+     * Authenticates a user in the ddbb.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.body - The request body.
+     * @param {string} req.body.email - User's email.
+     * @param {string} req.body.pwd - User's password.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON response with JWT token and message or error.
+     */
 	login: async (req, res) => {
 		try {
 			const { email, pwd } = req.body

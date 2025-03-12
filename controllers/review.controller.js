@@ -3,6 +3,17 @@ import modelDashboard from "../models/dashboard.model.js"
 import logger from "../config/logger.js"
 
 export default {
+	/**
+		 * Creates a new review for a book.
+		 * @param {Object} req - The HTTP request object.
+		 * @param {Object} req.body - The request body.
+		 * @param {string} req.body.bookId - ID of the book to review.
+		 * @param {number} req.body.rating - Rating of the book (1-5).
+		 * @param {string} req.body.comment - Review comment.
+		 * @param {string} req.userId - User ID (added by authentication middleware).
+		 * @param {Object} res - The HTTP response object.
+		 * @returns {Object} JSON response with confirmation message and created review.
+		 */
 	createReview: async (req, res) => {
 		try {
 			const { bookId, rating, comment } = req.body
@@ -27,6 +38,14 @@ export default {
 		}
 	},
 
+	/**
+		 * Gets all reviews for a book.
+		 * @param {Object} req - The HTTP request object.
+		 * @param {Object} req.params - The route parameters.
+		 * @param {string} req.params.bookId - ID of the book.
+		 * @param {Object} res - The HTTP response object.
+		 * @returns {Object} JSON response with the list of reviews or error message.
+		 */
 	getReviewsByBook: async (req, res) => {
 		try {
 			const { bookId } = req.params
