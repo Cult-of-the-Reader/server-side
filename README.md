@@ -16,7 +16,7 @@ server/
 │   └── review.controller.js      # Reviews controller
 ├── docs/
 │   ├── jest
-│   └── book.model.test.js        # Jest tester for CRUD book collection
+│        └── book.model.test.js        # Jest tester for CRUD book collection
 │   ├── jmeter
 │   │    ├── auth_test.jmx        # Template JMeter
 │   │    └── auth.csv             # Template for the JMeter auth test
