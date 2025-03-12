@@ -6,8 +6,11 @@ const options = {
 		openapi: "3.0.0",
 		info: {
 			title: "Library API",
-			version: "0.1.0",
-			description: "API for managing books and review"
+			version: "2.0.0",
+			description: "API for a book store",
+			contact: {
+				name: "MarcoApunto"
+			}
 		},
 		servers: [
 			{
