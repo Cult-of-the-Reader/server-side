@@ -2,6 +2,12 @@ import modelBook from "../models/book.model.js"
 import logger from "../config/logger.js"
 
 export default {
+	/**
+     * Gets all available books.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON response with the list of books or error message.
+     */
 	getBooks: async (req, res) => {
 		try {
 			const books = await modelBook.getBooks()
@@ -13,6 +19,15 @@ export default {
 			res.status(500).json({ error: 'Something went wrong' })
 		}
 	},
+
+	/**
+     * Gets a specific book by its ID.
+     * @param {Object} req - The HTTP request object.
+     * @param {Object} req.params - The route parameters.
+     * @param {string} req.params.id - ID of the book to find.
+     * @param {Object} res - The HTTP response object.
+     * @returns {Object} JSON response with the found book or error message.
+     */
 	getBookById: async (req, res) => {
 		try {
 			const { id } = req.params
