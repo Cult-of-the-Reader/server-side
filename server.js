@@ -1,4 +1,5 @@
 import express, { json, urlencoded } from "express"
+import path from "path"
 import dotenv from "dotenv"
 import cors from "cors"
 
@@ -35,6 +36,12 @@ app.use("/api/v4/", bookRoutes)
 app.use("/api/v4/", reviewRoutes)
 app.use("/api/v4/", dashboardRoutes)
 app.use("/api/v4/", cartItemRoutes)
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 const PORT = process.env.PORT
 
