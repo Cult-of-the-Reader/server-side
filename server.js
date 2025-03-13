@@ -1,6 +1,4 @@
 import express, { json, urlencoded } from "express"
-import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from "dotenv"
 import cors from "cors"
 
@@ -18,9 +16,6 @@ import dashboardRoutes from "./routes/dashboard.js"
 import cartItemRoutes from "./routes/cartItem.js"
 
 dotenv.config()
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express()
 
@@ -41,11 +36,6 @@ app.use("/api/v4/", reviewRoutes)
 app.use("/api/v4/", dashboardRoutes)
 app.use("/api/v4/", cartItemRoutes)
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 const PORT = process.env.PORT
 
