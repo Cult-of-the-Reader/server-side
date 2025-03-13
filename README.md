@@ -16,12 +16,14 @@ server/
 │   └── review.controller.js      # Reviews controller
 ├── docs/
 │   ├── jest
-│        └── book.model.test.js   # Jest tester for CRUD book collection
+│   │     └── book.model.test.js   # Jest tester for CRUD book collection
 │   ├── jmeter
 │   │    ├── auth_test.jmx        # Template JMeter
 │   │    └── auth.csv             # Template for the JMeter auth test
 │   ├── diagram_UML.png           # Simple UML Diagram
-│   └── ER_DDBB.png               # Database flow
+│   ├── documentacion.pdf         # Documentation in spanish
+│   ├── ER_DDBB.png               # Database flow
+│   └── secuenciaLogin.jpg        # Basic Diagram Secuence Login
 ├── middlewares/
 │   └── auth.middleware.js        # Authentication middleware
 ├── models/

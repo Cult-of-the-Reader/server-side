@@ -14,7 +14,7 @@ const options = {
 		},
 		servers: [
 			{
-				url: "http://localhost:3001",
+				url: "https://cult-of-the-reader.onrender.com/",
 			},
 		],
 		components: {
